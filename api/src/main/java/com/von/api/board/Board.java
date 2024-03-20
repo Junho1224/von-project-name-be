@@ -1,62 +1,25 @@
 package com.von.api.board;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@NoArgsConstructor
+@Getter
+@ToString
 
 public class Board {
 
-    private int id;
-    private String title;
-    private String content;
-    private String writer;
+    private Long id;
 
-    public String getTitle() {
-        return title;
+    private String boardName;
+    private String boardType;
+
+@Builder(builderMethodName = "builder")
+    public Board(Long id, String boardName, String boardType) {
+        this.id = id;
+        this.boardName = boardName;
+        this.boardType = boardType;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-
-    @Builder(builderMethodName = "builder")
-    public Board(int id, String title, String content, String writer){
-        this.id=id;
-        this.title=title;
-        this.content=content;
-        this.writer=writer;
-
-    }
-
-
-    @Override
-    public String toString() {
-        return "BoardDTO{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", writer='" + writer + '\'' +
-                '}';
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public Board(String title, String content, String writer) {
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-    }
-
 }

@@ -1,74 +1,60 @@
 package com.von.api.account;
-import com.von.api.enums.Messenger;
 
+
+import com.von.api.enums.Messenger;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+@RestController
+@RequiredArgsConstructor
 public class AccountController {
+    private final AccountServiceImpl acServ;
 
-    LocalDate today = LocalDate.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-    String strNowDate = formatter.format(today);
-
-    AccountServiceImpl user;
-
-    public AccountController() {
-        this.user = AccountServiceImpl.getInstance();
-    }
-
-    public Messenger createAccount(Scanner scanner) {
-        System.out.println("ID" +
-                "계좌번호" +
-                "계좌 홀더?" +
-                "발란스?"
-        );
-        return user.save(Account.builder()
-                .id(sc.nextLong())
-                .accountNumber(sc.next())
-                .accountHolder(sc.next())
-                .balance(sc.nextDouble())
-                .transactionDate(strNowDate) //date
+    public Messenger createAccount(Scanner scan) {
+        System.out.println("id, acNum, acH, bal");
+        return acServ.save(Account.builder()
+                .id(scan.nextLong())
+                .accountNumber(scan.next())
+                .accountHolder(scan.next())
+                .balance(scan.nextDouble())
+                .transactionDate(LocalDate.now())
                 .build());
     }
 
-
-    public String deposit(Scanner sc) {
-        return user.deposit(Account.builder()
-                .id(sc.nextLong())
-                .accountHolder(sc.next())
-                .accountNumber(sc.next())
-                .balance(sc.nextDouble())
-                .transactionDate(null) //date
+    public String deposit(Scanner scan) {
+        return acServ.deposit(Account.builder()
+                .id(scan.nextLong())
+                .accountNumber(scan.next())
+                .accountHolder(scan.next())
+                .balance(scan.nextDouble())
+                .transactionDate(null)
                 .build());
     }
 
-    public String withdraw(Scanner sc) {
-        return user.withdraw(Account.builder()
-                .id(sc.nextLong())
-                .accountHolder(sc.next())
-                .accountNumber(sc.next())
-                .balance(sc.nextDouble())
-                .transactionDate(null) //date
+    public String withdraw(Scanner scan) {
+        return acServ.withdraw(Account.builder()
+                .id(scan.nextLong())
+                .accountNumber(scan.next())
+                .accountHolder(scan.next())
+                .balance(scan.nextDouble())
+                .transactionDate(null)
                 .build());
     }
 
-    public String getbalance(Scanner sc) {
-        return user.getBalance(sc.next());
+    public String getBalance(Scanner scan) {
+        return acServ.getBalance(scan.next());
     }
 
-    public String delete(Scanner sc) {
-        return user.delete(Account.builder()
-                .accountNumber(sc.next())
-                .build());
+    public String cancelAccount(Scanner scan) {
+        System.out.println("Insert accountNumber to remove");
+        return acServ.delete(Account.builder().accountNumber(scan.next()).build());
     }
-
 
     public List<?> getAccounts() {
-        return user.findAll();
+        return acServ.findAll();
     }
-
-
 }

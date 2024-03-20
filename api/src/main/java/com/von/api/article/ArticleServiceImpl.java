@@ -1,45 +1,29 @@
-package com.von.api.account;
-
+package com.von.api.article;
 
 import com.von.api.common.AbstractService;
 import com.von.api.enums.Messenger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AccountServiceImpl extends AbstractService<Account> implements AccountService {
-
+public class ArticleServiceImpl extends AbstractService<Article> implements ArticleService {
     @Override
-    public String deposit(Account dto) {
-        return null;
-    }
-    @Override
-    public String withdraw(Account dto) {
+    public Messenger save(Article article) {
         return null;
     }
 
     @Override
-    public String getBalance(String accountNumber) {
+    public List<Article> findAll() throws SQLException {
         return null;
     }
 
     @Override
-    public Messenger save(Account account) {
-        return null;
-    }
-
-    @Override
-    public List<Account> findAll() {
-        return null;
-    }
-
-    @Override
-    public Optional<Account> findById(Long id) {
+    public Optional<Article> findById(Long id) {
         return Optional.empty();
     }
 
@@ -49,12 +33,12 @@ public class AccountServiceImpl extends AbstractService<Account> implements Acco
     }
 
     @Override
-    public Optional<Account> getOne(String id) {
+    public Optional<Article> getOne(String id) {
         return Optional.empty();
     }
 
     @Override
-    public String delete(Account account) {
+    public String delete(Article article) {
         return null;
     }
 

@@ -1,48 +1,22 @@
 package com.von.api.menu;
-import java.sql.*;
 
 import com.von.api.enums.Messenger;
-import com.von.api.user.User;
-import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@Repository
+@RequiredArgsConstructor
 public class MenuRepository {
-    @Getter
-    private static final MenuRepository instance;
-
-    static {
-        try {
-            instance = new MenuRepository();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
+    private Connection conn = null;
+    private PreparedStatement pstmt = null;
+    private ResultSet rs = null;
 
-    public Menu returnOneMenu(){
-        return null;
-    }
-
-
-    private final Connection conn;
-    private PreparedStatement pstmt;
-    private ResultSet rs;
-
-    private MenuRepository() throws SQLException {
-        conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/vondb",
-                "von",
-                "password");
-        pstmt = null;
-        rs = null;
-    }
 
     public Messenger makeTable() {
         String sql = "CREATE TABLE IF NOT EXISTS menus (" +
@@ -51,12 +25,11 @@ public class MenuRepository {
                 "item VARCHAR(20) NOT NULL)";
         try {
             pstmt = conn.prepareStatement(sql);
-            return pstmt.executeUpdate() >= 0 ? Messenger.SUCCESS : Messenger.FAIL; //executeUpdate : 전송 버튼
+            return pstmt.executeUpdate() >= 0 ? Messenger.SUCCESS : Messenger.FAIL;
         } catch (SQLException e){
             System.err.println("SQL Exception Occurred");
             return Messenger.SQL_ERROR;
         }
-
     }
 
     public Messenger removeTable() {
@@ -90,9 +63,9 @@ public class MenuRepository {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, category);
             rs = pstmt.executeQuery();
-            while(rs.next())    menus.add(Menu.builder()
-                    .item(rs.getString(1))
-                    .build());
+            while(rs.next()){
+                menus.add(Menu.builder().item(rs.getString(1)).build());
+            }
         } catch (SQLException e){
             System.err.println("SQL Exception Occurred");
             return menus;
@@ -100,92 +73,26 @@ public class MenuRepository {
         return menus;
     }
 
-    public List<Menu> makeFoobar() throws SQLException {
-        String sql = "";
-        pstmt= conn.prepareStatement(sql);
-        rs = pstmt.executeQuery();
+//    public Messenger returnMessenger() {
+//        return null;
+//    }
 
-        List<Menu> ls = new ArrayList<>();
-        if (rs.next()){
-            do{
-                Menu m = Menu.builder()
-                        .item(rs.getString("item"))
-                        .category(rs.getString("category"))
-                        .build();
-                ls.add(m);
+    public List<?> returnAllMenus(String category) throws SQLException {
+        List<String> menuList = new ArrayList<>();
 
-            }while (rs.next());
-
-        }else {
-            System.out.println("no data");
-        }
-        return ls;
-
-
-    }
-
-    public Messenger returnMessenger() throws SQLException {
-        String sql = "";
+        String sql = "select * from menus where category = ?";
         pstmt = conn.prepareStatement(sql);
-        Messenger m  = null;
-
-        return m;
-
-    };
-
-
-    public List<?> returnAllMenus() throws SQLException {
-        List<Menu> ls = new ArrayList<>();
-        String sql = "";
-        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,category);
         rs = pstmt.executeQuery();
         if(rs.next()){
-            do {
-                Menu menu = Menu.builder()
-                        .item(rs.getString("item"))
-                        .category(rs.getString("category"))
-                        .build();
-                ls.add(menu);
-            }while (rs.next());
-
-        }else{
-            System.out.println("no data");
-        }
-        return ls;
-    }
-
-
-
-    public List<String> userMenu() throws SQLException {
-        List<String> ls = new ArrayList<>();
-        String sql = "";
-        pstmt = conn.prepareStatement(sql);
-        rs = pstmt.executeQuery();
-        if (rs.next()){
             do{
-                User user = User.builder()
-                        .id(rs.getLong("id"))
-                        .username(rs.getString("username"))
-                        .password(rs.getString("password"))
-                        .name(rs.getString("name"))
-                        .addressId(rs.getLong("addressId"))
-                        .job(rs.getString("job"))
-                        .build();
-                ls.add(String.valueOf(user));
-            }while (rs.next());
+                menuList.add(rs.getString("item"));
+            }while(rs.next());
         }else{
-            System.out.println("no data");
+            System.out.println("No data");
         }
-        return ls;
+
+        return menuList;
     }
 
-
-
-
-
-
-    public Map<String,?> returnMap() {
-        Map<String,?> map = new HashMap<>();
-        return map;
-    }
 }

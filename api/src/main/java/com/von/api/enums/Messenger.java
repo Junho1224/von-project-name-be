@@ -1,5 +1,7 @@
 package com.von.api.enums;
 
 public enum Messenger {
-    SUCCESS, SQL_ERROR, FAIL
+    SUCCESS,
+    FAIL,SQL_ERROR
+
 }

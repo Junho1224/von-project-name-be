@@ -1,120 +1,77 @@
 package com.von.api.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController; 
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 public class UserController {
+    private final UserServiceImpl service;
 
-    private final UserService userService;
+    @GetMapping("/login")
+    public String hello(){
+        return "welcom";
+    }
 
-    @PostMapping("/login")
-    public Map<String, ?> userName(@RequestBody Map<String, ?> paramMap) {
-        String username = (String) paramMap.get("username");
-        System.out.println("리퀘스트가 가져온 이름 : " + username);
-        Map<String, String> resMap = new HashMap<>();
-        resMap.put("username", " : " + username);
-        return resMap;
+    @PostMapping("/username")
+    public Map<String,?> name(@RequestBody Map<String,?> map){
+        String name = (String)map.get("username");
+        System.out.println("request가 가져온 이름 : "+name);
+        Map<String,String> respMap = new HashMap<>();
+        respMap.put("username","환영환영."+name);
+        return respMap;
+    }
+
+
+    public Map<String,?> save(@RequestBody Map<String,?> map) {
+                return null;
+    }
+
+    public Map<String,?> login(@RequestBody Map<String,?> map) {
+        return null;
+    }
+
+    public Map<String,?> changePassword(@RequestBody Map<String,?> map) {
+        return null;
+    }
+
+    public Map<String,?> delete(@RequestBody Map<String,?> map) {
+        return null;
+    }
+
+    public Map<String,?> findUsersByName(@RequestBody Map<String,?> map) {
+        return null;
+    }
+
+    public Map<String,?> findUsersByJob(@RequestBody Map<String,?> map) {
+        return null;
     }
 
 
     public Map<String,?> count() {
-        Map<String,String> map = new HashMap<>();
-        return map;
-        
+        return null;
     }
 
-    public Map<String,?> save(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-
-    }
-
-    public Map<String,?> updatePassword(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-
-    public Map<String, ?> getUserMap() {
-        Map<String,String> map = new HashMap<>();
-    
-        return map;
-
-    }
-    public Map<String,?> addUser() {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-
-    public Map<String,?> login(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-
-    public Map<String,?> findUser(@RequestBody Map<String, ?> paramMap) {
-
-        Map<String,String> map = new HashMap<>();
-        return map;
-
-    }
-    public Map<String,?> existsById(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-    public Map<String,?> findUsersByName(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-    public Map<String, ?> findUsersByNameFromMap(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-
-    public Map<String,?> findUsersByJob(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-
-    public Map<String, ?> findUsersByJobFromMap(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-
-   
-    public Map<String,?> getOne(@RequestBody Map<String, ?> paramMap) {
-        Map<String,String> map = new HashMap<>();
-        return map;
-    }
-
-    public Map<String, ?> getUserID() {
-        Map<String,String> map = new HashMap<>();
-        return map;
-
-    }
-    
     public Map<String,?> findUsers() throws SQLException {
-        Map<String,String> map = new HashMap<>();
-        return map;
+        return null;
+    }
+
+    public void createTable() throws SQLException {
+    }
+
+    public void deleteTable() throws SQLException {
     }
 
 
-    public Map<String,?> createUsers() throws SQLException {
-        Map<String,String> map = new HashMap<>();
-        return map;
+    public Map<String,?> getOne(@RequestBody Map<String,?> map) {
+        return null;
     }
 
-
-
+    public Map<String,?> findUser(@RequestBody Map<String,?> map) {
+        return null;
+    }
 }
