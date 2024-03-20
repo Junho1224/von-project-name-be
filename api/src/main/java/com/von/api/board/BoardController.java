@@ -1,4 +1,4 @@
-package com.von.api.article;
+package com.von.api.board;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -10,10 +10,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-public class ArticleController {
-    private final ArticleService service;
+public class BoardController {
+    private static BoardService service;
 
-    public Map<?,?> findAll() throws SQLException {
+    public Map<?,?> readArticles() throws SQLException {
         Map<String, String> map = new HashMap<>();
         return map;
     }

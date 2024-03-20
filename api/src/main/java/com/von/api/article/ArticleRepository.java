@@ -38,7 +38,7 @@ public class ArticleRepository {
                         .title(rs.getString("title"))
                         .content(rs.getString("content"))
                         .writer(rs.getString("writer"))
-                        .postDate(rs.getDate("writeDate"))
+                        //.postDate(rs.getDate("writeDate"))
                         .build());
             }
             while (rs.next());
