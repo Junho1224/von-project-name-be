@@ -19,7 +19,7 @@ public class AccountController {
         this.user = AccountServiceImpl.getInstance();
     }
 
-    public Messenger createAccount(Scanner sc) {
+    public Messenger createAccount(Scanner scanner) {
         System.out.println("ID" +
                 "계좌번호" +
                 "계좌 홀더?" +
