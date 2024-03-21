@@ -17,7 +17,6 @@ public class Board {
     private String boardName;
     private String boardType;
 
-    @OneToMany
 
 @Builder(builderMethodName = "builder")
     public Board(Long id, String boardName, String boardType) {

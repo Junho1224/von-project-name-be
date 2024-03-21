@@ -2,15 +2,15 @@ package com.von.api.order;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString(exclude = {"id"})
-@Entity(name="users")
+@Entity(name="order_table")
 public class Order {
+
     @Id
     private Long id;
 
@@ -20,5 +20,9 @@ public class Order {
 
     public Long getId() {
         return id;
+    }
+    @Builder
+    public Order(Long id) {
+        this.id = id;
     }
 }

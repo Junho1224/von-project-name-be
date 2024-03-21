@@ -15,10 +15,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy="id")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
     private List<Order> orders;
 
-    @Column(name="username")
+    @Column
     private String username;
 
     @Column(name="password")
