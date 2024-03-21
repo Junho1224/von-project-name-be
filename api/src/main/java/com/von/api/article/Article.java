@@ -1,22 +1,25 @@
 package com.von.api.article;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import java.util.Date;
-
+@NoArgsConstructor
+@Getter
+@ToString(exclude = {"id"})
 public class Article {
     private Long id;
     private String title;
     private String content;
     private String writer;
-    private Date postDate;
-
+    private String registerDate;
     @Builder(builderMethodName = "builder")
-    public Article(Long id, String title, String content, String writer, Date postDate) {
+    public Article(Long id, String title, String content, String writer, String registerDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.postDate = postDate;
+        this.registerDate = registerDate;
     }
 }
