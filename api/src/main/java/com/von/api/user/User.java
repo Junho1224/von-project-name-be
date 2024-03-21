@@ -1,11 +1,19 @@
 package com.von.api.user;
 
+import jakarta.persistence.*;
 import lombok.*;
+
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString
+
+@Entity(name = "users")
 public class User {
+
+    @Id
+    @Column(name = "userId",nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String userName;
     private String password;

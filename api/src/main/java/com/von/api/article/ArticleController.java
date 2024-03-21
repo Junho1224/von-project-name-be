@@ -1,6 +1,5 @@
 package com.von.api.article;
 
-import com.von.api.account.AccountServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,7 +9,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ArticleController {
-    private final AccountServiceImpl service;
+    private final ArticleService service;
 
     public List<Article> findAll() throws SQLException {
         return null;
