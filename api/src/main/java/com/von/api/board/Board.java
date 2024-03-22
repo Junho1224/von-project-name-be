@@ -1,5 +1,6 @@
 package com.von.api.board;
 
+import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class Board {
 
     private String boardName;
     private String boardType;
+
 
 @Builder(builderMethodName = "builder")
     public Board(Long id, String boardName, String boardType) {

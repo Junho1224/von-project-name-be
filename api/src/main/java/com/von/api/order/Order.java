@@ -1,5 +1,6 @@
 package com.von.api.order;
 
+<<<<<<< HEAD
 import com.von.api.product.Product;
 import com.von.api.user.User;
 import jakarta.persistence.*;
@@ -40,5 +41,31 @@ public class Order {
         this.orderAmount = orderAmount;
         this.product = product;
         this.user = user;
+=======
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.*;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString(exclude = {"id"})
+@Entity(name="order_table")
+public class Order {
+
+    @Id
+    private Long id;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+    @Builder
+    public Order(Long id) {
+        this.id = id;
+>>>>>>> dev-jws
     }
 }
