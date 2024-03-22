@@ -6,9 +6,11 @@ import com.von.api.article.Article;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
@@ -18,21 +20,22 @@ import lombok.*;
 @Entity(name = "board")
 public class Board {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
 
-    @OneToMany(mappedBy = "Board")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
     private List<Article> articles;
 
     @Column(name = "BOARDNAME")
     private String boardName;
+
     @Column(name = "BOARDTYPE")
     private String boardType;
     
-
 
     @Builder(builderMethodName = "builder")
     public Board(Long id, String boardName, String boardType) {

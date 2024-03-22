@@ -20,26 +20,16 @@ import lombok.ToString;
 @Entity(name = "article")
 public class Article {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     @Id
-    @Column(name = "id")
     private Long id; // primary key
     
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Board Board_id;
-
-    @Column(name = "TITLE")
+    @Column
     private String title;
-
-    @Column(name = "CONTENT")
+    @Column
     private String content;
-
-    @Column(name = "WRITER")
+    @Column
     private String writer;
-
-    @Column(name = "REGISTERDATE")
+    @Column
     private String registerDate;
 
     @Builder(builderMethodName = "builder")
