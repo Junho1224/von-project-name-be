@@ -1,5 +1,4 @@
 package com.von.api.board;
 
-
-public class BoardServiceImpl implements BoardService {
+public class BoardServiceImpl{
 }
