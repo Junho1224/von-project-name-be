@@ -3,6 +3,8 @@ package com.von.api.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import com.von.api.enums.Messenger;
+
 import java.sql.SQLException;
 import java.util.*;
 
@@ -10,20 +12,39 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final UserServiceImpl service;
 
-    @GetMapping("/login")
-    public String hello(){
-        return "welcom";
+    private final UserRepository repo;
+
+    @PostMapping("/api/login")
+    public Map<String, ?> userName(@RequestBody Map<String, ?> paramMap) {
+        String username = (String) paramMap.get("username");
+        System.out.println("리퀘스트가 가져온 이름 : " + username);
+        Map<String, String> resMap = new HashMap<>();
+        resMap.put("username", " : " + username);
+        return resMap;
     }
 
-    @PostMapping("/username")
-    public Map<String,?> name(@RequestBody Map<String,?> map){
-        String name = (String)map.get("username");
-        System.out.println("request가 가져온 이름 : "+name);
-        Map<String,String> respMap = new HashMap<>();
-        respMap.put("username","환영환영."+name);
-        return respMap;
+
+    @PostMapping(path = "/api/users")
+    public Map<String, ?> join(@RequestBody Map<String, ?> paramMap) {
+        User newUser = User.builder()
+                .username((String) paramMap.get("username"))
+                .password((String) paramMap.get("password"))
+                .name((String) paramMap.get("name"))
+                .phone((String) paramMap.get("phone"))
+                .job((String) paramMap.get("job"))
+                .height(Double.parseDouble((String) paramMap.get("height")))
+                .weight(Double.parseDouble((String) paramMap.get("weight")))
+                .build();
+                System.out.println("DB에 저장된 User 정보" + newUser);
+
+        repo.save(newUser); 
+        System.out.println("성공?");
+
+        Map<String, Messenger> map = new HashMap<>();
+        map.put("result", Messenger.SUCCESS);
+
+        return map;
     }
 
 
