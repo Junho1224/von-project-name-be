@@ -17,13 +17,31 @@ public class UserController {
 
     @PostMapping("/api/login")
     public Map<String, ?> userName(@RequestBody Map<String, ?> paramMap) {
+
+        Map<String, Messenger> resMap = new HashMap<>();
+
         String username = (String) paramMap.get("username");
-        System.out.println("리퀘스트가 가져온 이름 : " + username);
-        Map<String, String> resMap = new HashMap<>();
-        resMap.put("username", " : " + username);
+        String password = (String) paramMap.get("password");
+        System.out.println("username is " + username);
+        System.out.println("password is " + password);
+
+
+        User optUser = repo.findByUsername(username).orElse(null);
+        if (optUser == null) {
+            resMap.put("message", Messenger.FAIL);
+            System.out.println("null");
+            return resMap;
+        }else if (!optUser.getPassword().equals(password)){
+            resMap.put("message", Messenger.WRONG_PASSWORD);
+        }else {
+            resMap.put("message", Messenger.SUCCESS);
+
+        }
+        Long id = optUser.getId();
+        System.out.println("ID is" + id);
+        
         return resMap;
     }
-
 
     @PostMapping(path = "/api/users")
     public Map<String, ?> join(@RequestBody Map<String, ?> paramMap) {
@@ -36,48 +54,46 @@ public class UserController {
                 .height(Double.parseDouble((String) paramMap.get("height")))
                 .weight(Double.parseDouble((String) paramMap.get("weight")))
                 .build();
-                System.out.println("DB에 저장된 User 정보" + newUser);
+        System.out.println("DB에 저장된 User 정보" + newUser);
 
-        repo.save(newUser); 
+        repo.save(newUser);
         System.out.println("성공?");
 
         Map<String, Messenger> map = new HashMap<>();
-        map.put("result", Messenger.SUCCESS);
+        map.put("message", Messenger.SUCCESS);
 
         return map;
     }
 
-
-    public Map<String,?> save(@RequestBody Map<String,?> map) {
-                return null;
-    }
-
-    public Map<String,?> login(@RequestBody Map<String,?> map) {
+    public Map<String, ?> save(@RequestBody Map<String, ?> map) {
         return null;
     }
 
-    public Map<String,?> changePassword(@RequestBody Map<String,?> map) {
+    public Map<String, ?> login(@RequestBody Map<String, ?> map) {
         return null;
     }
 
-    public Map<String,?> delete(@RequestBody Map<String,?> map) {
+    public Map<String, ?> changePassword(@RequestBody Map<String, ?> map) {
         return null;
     }
 
-    public Map<String,?> findUsersByName(@RequestBody Map<String,?> map) {
+    public Map<String, ?> delete(@RequestBody Map<String, ?> map) {
         return null;
     }
 
-    public Map<String,?> findUsersByJob(@RequestBody Map<String,?> map) {
+    public Map<String, ?> findUsersByName(@RequestBody Map<String, ?> map) {
         return null;
     }
 
-
-    public Map<String,?> count() {
+    public Map<String, ?> findUsersByJob(@RequestBody Map<String, ?> map) {
         return null;
     }
 
-    public Map<String,?> findUsers() throws SQLException {
+    public Map<String, ?> count() {
+        return null;
+    }
+
+    public Map<String, ?> findUsers() throws SQLException {
         return null;
     }
 
@@ -87,12 +103,11 @@ public class UserController {
     public void deleteTable() throws SQLException {
     }
 
-
-    public Map<String,?> getOne(@RequestBody Map<String,?> map) {
+    public Map<String, ?> getOne(@RequestBody Map<String, ?> map) {
         return null;
     }
 
-    public Map<String,?> findUser(@RequestBody Map<String,?> map) {
+    public Map<String, ?> findUser(@RequestBody Map<String, ?> map) {
         return null;
     }
 }
