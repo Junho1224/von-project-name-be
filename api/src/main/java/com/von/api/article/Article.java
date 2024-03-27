@@ -17,12 +17,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = {"id"})
-@Entity(name = "article")
+@Entity(name = "articles")
 public class Article {
 
     @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // primary key
-    
     @Column
     private String title;
     @Column
