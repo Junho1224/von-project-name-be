@@ -2,53 +2,69 @@ package com.von.api.article;
 
 import com.von.api.common.AbstractService;
 import com.von.api.enums.Messenger;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 @Service
 @RequiredArgsConstructor
-public class ArticleServiceImpl extends AbstractService<Article> implements ArticleService {
+public class ArticleServiceImpl extends AbstractService {
+
+    private final ArticleRepository repository;
+
     @Override
-    public Messenger save(Article article) {
-        return null;
+    public Messenger save(Object t) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
     @Override
-    public List<Article> findAll() throws SQLException {
-        return null;
+    public List findAll() throws SQLException {
+        return repository.findAll();
     }
 
     @Override
-    public Optional<Article> findById(Long id) {
-        return Optional.empty();
+    public Optional findById(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
     @Override
     public String count() {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'count'");
     }
 
     @Override
-    public Optional<Article> getOne(String id) {
-        return Optional.empty();
+    public Optional getOne(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOne'");
     }
 
     @Override
-    public String delete(Article article) {
-        return null;
+    public String delete(Object t) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
     @Override
     public String deleteAll() {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
     }
 
     @Override
     public Boolean existById(Long id) {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'existById'");
     }
+
+   
+
+    
 }
