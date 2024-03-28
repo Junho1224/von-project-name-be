@@ -1,5 +1,10 @@
 package com.von.api.user;
 
+import java.util.List;
+
+import com.von.api.article.Article;
+import com.von.api.product.Product;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,13 +22,14 @@ public class User {
     private String password;
     private String name;
     private String phone;
-    private Long addressId;
+    private String addressId;
     private String job;
     private double height;
     private double weight;
 
+
     @Builder(builderMethodName = "builder")
-    public User(Long id, String username, String password, Long addressId,
+    public User(Long id, String username, String password, String addressId,
             String name, String phone,
             String job,
             double height, double weight) {
