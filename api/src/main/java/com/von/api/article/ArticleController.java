@@ -19,20 +19,11 @@ import lombok.RequiredArgsConstructor;
 public class ArticleController {
     private final ArticleServiceImpl service;
  
-    @GetMapping("/api/articles")
+    @GetMapping("/api/all-articles")
     public Map<?,?> findAll() throws SQLException {
         Map<String, Object> map = new HashMap<>();
         map.put("message", Messenger.SUCCESS);
         @SuppressAjWarnings("unchecked")
-
-        
-        // list.add(Article.builder()
-        // .id(1L)
-        // .title("청사초롱 불밝혀라")
-        // .content("잊었던 낭군 다시온다")
-        // .writer("늴 니리리야")
-        // .registerDate("닐 리리야 니나노")
-        // .build());
         List<Article> list = new ArrayList<>();
         list = service.findAll();
         list.forEach(System.out::println);
