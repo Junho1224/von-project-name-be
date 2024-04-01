@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+@SuppressWarnings("rawtypes")
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl extends AbstractService {
