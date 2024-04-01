@@ -19,12 +19,12 @@ import lombok.RequiredArgsConstructor;
 public class ArticleController {
     private final ArticleServiceImpl service;
  
+    @SuppressWarnings("unchecked")
     @GetMapping("/api/all-articles")
     public Map<?,?> findAll() throws SQLException {
         Map<String, Object> map = new HashMap<>();
-        map.put("message", Messenger.SUCCESS);
-        @SuppressAjWarnings("unchecked")
         List<Article> list = new ArrayList<>();
+        map.put("message", Messenger.SUCCESS);
         list = service.findAll();
         list.forEach(System.out::println);
         System.out.println("리스트 사이즈 : "+list.size());

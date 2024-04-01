@@ -28,16 +28,16 @@ public class Article {
     private String content;
     private String registerDate;
 
-    @ManyToOne
-    @JoinColumn(name = "writer", nullable = true)
-    private User writer;
+    // @ManyToOne
+    // @JoinColumn(name = "writer", nullable = true)
+    private Long writer;
 
-    @ManyToOne
-    @JoinColumn(name = "board_id", nullable = true)
-    private Board board;
+    // @ManyToOne
+    // @JoinColumn(name = "board_id", nullable = true)
+    // private Board board;
 
     @Builder(builderMethodName = "builder")
-    public Article(Long id, String title, String content, User writer, String registerDate) {
+    public Article(Long id, String title, String content, Long writer, String registerDate) {
         this.id = id;
         this.title = title;
         this.content = content;

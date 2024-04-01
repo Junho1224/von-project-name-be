@@ -4,6 +4,7 @@ import com.von.api.common.AbstractService;
 import com.von.api.enums.Messenger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,9 +12,12 @@ import java.util.Map;
 import java.util.Optional;
 
 
-@Controller
+@SuppressWarnings("rawtypes")
+@Service
 @RequiredArgsConstructor
 public class UserServiceImpl extends AbstractService implements UserService{
+
+    private final UserRepository repository;
 
     @Override
     public Messenger save(Object o) {
@@ -21,8 +25,8 @@ public class UserServiceImpl extends AbstractService implements UserService{
     }
 
     @Override
-    public List findAll() {
-        return null;
+    public List<User> findAll() {
+        return repository.findAll();
     }
 
     @Override
