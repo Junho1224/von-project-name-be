@@ -1,8 +1,11 @@
 package com.von.api.user;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.von.api.article.Article;
 import com.von.api.enums.Messenger;
 
 import java.sql.SQLException;
@@ -14,7 +17,45 @@ import java.util.*;
 public class UserController {
 
     private final UserRepository repo;
+    private final UserServiceImpl service;
 
+
+    @PostMapping(path = "/api/users")
+    public Map<String, ?> join(@RequestBody Map<String, ?> paramMap) {
+        User newUser = User.builder()
+                .username((String) paramMap.get("username"))
+                .password((String) paramMap.get("password"))
+                .name((String) paramMap.get("name"))
+                .phone((String) paramMap.get("phone"))
+                .job((String) paramMap.get("job"))
+                .height(Double.parseDouble((String) paramMap.get("height")))
+                .weight(Double.parseDouble((String) paramMap.get("weight")))
+                .build();
+        System.out.println("DB에 저장된 User 정보" + newUser);
+
+        repo.save(newUser);
+        System.out.println("성공?");
+
+        Map<String, Messenger> map = new HashMap<>();
+        map.put("message", Messenger.SUCCESS);
+
+        return map;
+    }
+
+    @GetMapping("/api/users")
+    public Map<?,?> findAll() {
+        Map<String, Object> map = new HashMap<>();
+        List<User> list = new ArrayList<>();
+        map.put("message", Messenger.SUCCESS);
+        list = service.findAll();
+        list.forEach(System.out::println);
+        System.out.println("리스트 사이즈 : "+list.size());
+        map.put("result",list);
+        return map;
+    }
+    
+
+    @SuppressWarnings("unchecked")
     @PostMapping("/api/login")
     public Map<String, ?> userName(@RequestBody Map<String, ?> paramMap) {
 
@@ -43,27 +84,8 @@ public class UserController {
         return resMap;
     }
 
-    @PostMapping(path = "/api/users")
-    public Map<String, ?> join(@RequestBody Map<String, ?> paramMap) {
-        User newUser = User.builder()
-                .username((String) paramMap.get("username"))
-                .password((String) paramMap.get("password"))
-                .name((String) paramMap.get("name"))
-                .phone((String) paramMap.get("phone"))
-                .job((String) paramMap.get("job"))
-                .height(Double.parseDouble((String) paramMap.get("height")))
-                .weight(Double.parseDouble((String) paramMap.get("weight")))
-                .build();
-        System.out.println("DB에 저장된 User 정보" + newUser);
 
-        repo.save(newUser);
-        System.out.println("성공?");
-
-        Map<String, Messenger> map = new HashMap<>();
-        map.put("message", Messenger.SUCCESS);
-
-        return map;
-    }
+    
 
     public Map<String, ?> save(@RequestBody Map<String, ?> map) {
         return null;
