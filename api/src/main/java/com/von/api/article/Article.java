@@ -6,6 +6,7 @@ import com.von.api.user.User;
 import lombok.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,18 +27,20 @@ public class Article {
     private Long id;
     private String title;
     private String content;
+
+    @Column(name = "register_date")
     private String registerDate;
 
-    // @ManyToOne
-    // @JoinColumn(name = "writer", nullable = true)
-    private Long writer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer", nullable = true)
+    private User writer;
 
-    // @ManyToOne
-    // @JoinColumn(name = "board_id", nullable = true)
-    // private Board board;
+    @ManyToOne
+    @JoinColumn(name = "board", nullable = true)
+    private Board board;
 
     @Builder(builderMethodName = "builder")
-    public Article(Long id, String title, String content, Long writer, String registerDate) {
+    public Article(Long id, String title, String content, User writer, String registerDate) {
         this.id = id;
         this.title = title;
         this.content = content;

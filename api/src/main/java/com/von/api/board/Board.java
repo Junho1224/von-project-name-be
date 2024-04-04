@@ -28,8 +28,7 @@ public class Board {
 
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
+    @OneToMany(mappedBy = "board")
     private List<Article> articles;
 
 
